@@ -32,37 +32,36 @@ Example Responses:
 
 Add the required logic below to complete the API.
 */
-
-app.get("/assistant/greet", (req, res) => {
-  // Retrieve the "name" query parameter, with a default fallback
-  let name = req.query.name || "Guest";
-  let day = new Date().getDay();
-
-  // Determine the message based on the day of the week
-  let dayMessage;
-  if (day === 1) { // Monday
-      dayMessage = "Happy Monday! Start your week with energy!";
-  } else if (day === 5) { // Friday
-      dayMessage = "It's Friday! The weekend is near!";
-  } else {
-      dayMessage = "Have a wonderful day!";
-  }
-
-  // Create the response object
-  let response = {
+app.get("/assistant/greet",(req,res)=>{
+  let name=req.query.name;
+  let day= new Date().getDay();
+  if (day==1){
+    let obj={
       welcomeMessage: `Hello, ${name}! Welcome to our assistant app!`,
-      dayMessage: dayMessage,
-  };
+      dayMessage: "Happy Monday! Start your week with energy!",
 
-  // Send the JSON response
-  return res.json(response);
-});
+    }
+    return res.send(obj);
+  }else if(day==5){
+    let obj={
+      welcomeMessage: `Hello, ${name}! Welcome to our assistant app!`,
+      dayMessage: "It's Friday! The weekend is near!",
 
-app.get('/', (req, res) => {
+    }
+    return res.send(obj);
+  }else{
+    let obj={
+    welcomeMessage: `Hello, ${name}! Welcome to our assistant app!`,
+    dayMessage: "Have a wonderful day!",
+    }
+    return res.send(obj);
+  }
+})
+app.get('/',function(req,res){
   return res.send('<h1>Hello world</h1>');
 });
-
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Virtual Assistant API is running on http://localhost:${PORT}`);
+    console.log(`Virtual Assistant API is running on http://localhost:${PORT}`);
 });
+
